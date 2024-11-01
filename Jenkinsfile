@@ -39,8 +39,12 @@ pipeline{
 
         stage('OWASP Dependency Check') {
             steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+                script {
+                    timeout(time: 60, unit: 'MINUTES') {
+                        dependencyCheck additionalArguments: '--scan ./', odcInstallation: 'DP', failOnHigh: true
+                        dependencyCheckPublisher pattern: 'dependency-check-report.xml', failOnHighSeverity: true, unstableOnHighSeverity: false
+                    }
+                }
             }
         }
     }
