@@ -48,7 +48,8 @@ pipeline{
                                                pattern: 'dependency-check-report.xml', 
                                                stopBuild: true, 
                                                unstableTotalCritical: 0, 
-                                               unstableTotalHigh: 0
+                                                unstableTotalHigh: 0
+                    }
                 }
             }
         }
